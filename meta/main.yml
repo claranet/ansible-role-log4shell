@@ -9,7 +9,7 @@ galaxy_info:
 
   min_ansible_version: 2.10
 
-  galaxy_tags: ['claranet', 'system', 'log4shell', 'cve202144228']
+  galaxy_tags: ['claranet', 'system', 'security', 'log4shell', 'cve202144228']
 
   platforms:
     - name: EL
