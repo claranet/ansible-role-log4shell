@@ -1,0 +1,28 @@
+galaxy_info:
+  role_name: "log4shell"
+  namespace: "claranet"
+  description: "Finding Log4Shell CVE-2021-44228 on your system"
+  author: "Claranet"
+  company: "Claranet France"
+
+  license: "MPL2"
+
+  min_ansible_version: 2.10
+
+  galaxy_tags: ['claranet', 'system', 'log4shell', 'cve202144228']
+
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Amazon
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+dependencies: []

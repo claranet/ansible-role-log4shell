@@ -1,0 +1,6 @@
+---
+- include_tasks: install.yml
+- include_tasks: search/lsof.yml
+- include_tasks: search/find.yml
+- include_tasks: analyze.yml
+...

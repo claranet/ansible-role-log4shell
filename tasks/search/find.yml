@@ -1,0 +1,12 @@
+---
+- name: find - Find {{ log4shell_scan_path }} *.[j|w]ar
+  find:
+    paths: "{{ log4shell_scan_path }}"
+    patterns: '*.[j|w]ar'
+    file_type: file
+  register: _log4shell_find
+
+- name: find - Process data from find
+  set_fact:
+    _log4shell_find_files: "{{ _log4shell_find.files | map(attribute='path') | list }}"
+...

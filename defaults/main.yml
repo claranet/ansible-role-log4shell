@@ -1,0 +1,4 @@
+---
+log4shell_scan_path: /
+log4shell_ignore_errors: true
+...

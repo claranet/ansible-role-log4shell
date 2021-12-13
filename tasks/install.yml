@@ -1,0 +1,8 @@
+---
+- name: install - Install requirements
+  package:
+    name:
+      - lsof
+      - unzip
+    state: present
+...

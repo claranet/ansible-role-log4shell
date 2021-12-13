@@ -1,0 +1,35 @@
+---
+- name: analyze - Merge files list
+  set_fact:
+    _log4shell_files: "{{ _log4shell_find_files + _log4shell_lsof_files }}"
+
+- block:
+    - name: analyze - Analyze jar and war files
+      unarchive:
+        src: "{{ item }}"
+        dest: /tmp  # Also needed in check mode ¯\_(ツ)_/¯
+        remote_src: true
+        list_files: true
+      check_mode: true
+      loop: "{{ _log4shell_files }}"
+      register: _log4shell_analyze_unarchive
+      tags:
+        - molecule-idempotence-notest
+
+    - name: analyze - Process analyze
+      set_fact:
+        log4shell_analyze_versions: "{{ log4shell_analyze_versions|default({}) | combine({item.item: (item.files | map('regex_search', _log4shell_regex, '\\1') | select('iterable') | map('first') | list | first)}) }}"
+      loop: "{{ _log4shell_analyze_unarchive.results|default([]) }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: analyze - Fail if vulnerable to CVE-2021-44228 (Log4Shell)
+      fail:
+        msg: "{{ item.key }} is using Log4J version {{ item.value }} which is vulnerable to CVE-2021-44228 (Log4Shell)"
+      when:
+        - log4shell_analyze_versions is defined
+        - item.value is version(_log4shell_patched_version, '<')
+      loop: "{{ log4shell_analyze_versions | dict2items }}"
+      ignore_errors: "{{ log4shell_ignore_errors|bool }}"  # noqa ignore-errors
+  when: _log4shell_files|length>0
+...
