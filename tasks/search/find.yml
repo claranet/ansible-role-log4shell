@@ -4,7 +4,7 @@
     paths: "{{ log4shell_scan_path }}"
     patterns: '*.[j|w]ar'
     file_type: file
-    recurse: yes
+    recurse: true
   register: _log4shell_find
 
 - name: find - Process data from find
