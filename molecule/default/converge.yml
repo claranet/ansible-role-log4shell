@@ -25,5 +25,5 @@
         - assert:
             that:
               - expected_failure is defined
-              - expected_failure.failed
+              - log4shell_analyze_versions is defined
               - should_not_run is not defined

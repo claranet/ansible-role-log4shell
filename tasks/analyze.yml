@@ -31,13 +31,13 @@
             fail_msg: "{{ item.key }} is using Log4J version {{ item.value }} which may be **VULNERABLE** to CVE-2021-44228 (Log4Shell)"
             success_msg: "{{ item.key }} is using Log4J version {{ item.value }} which is **NOT** vulnerable to CVE-2021-44228 (Log4Shell)"
           loop: "{{ log4shell_analyze_versions | dict2items }}"
-          ignore_errors: true  # noqa ignore-errors
           register: _log4shell_assert
 
+      rescue:
         - name: analyze - Fail if vulnerable to CVE-2021-44228 (Log4Shell)
           fail:
             msg: "At least one file may be **VULNERABLE** to CVE-2021-44228 (Log4Shell)"
-          when: _log4shell_assert.failed
+
       when:
         - log4shell_analyze_versions is defined
   when: _log4shell_files|length>0
