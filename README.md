@@ -20,7 +20,7 @@ The key is the path where the role has found the log4j library and the value is 
 
 ## :warning: Requirements
 
-Ansible >= 2.10
+Ansible >= 4
 
 ## :zap: Installation
 

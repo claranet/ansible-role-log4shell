@@ -7,7 +7,7 @@ galaxy_info:
 
   license: "MPL2"
 
-  min_ansible_version: 2.10
+  min_ansible_version: 4
 
   galaxy_tags: ['claranet', 'system', 'security', 'log4shell', 'cve202144228']
 
