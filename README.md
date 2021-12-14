@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/github/license/claranet/ansible-role-log4shell?style=flat-square)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/claranet/ansible-role-log4shell?style=flat-square)](https://github.com/claranet/ansible-role-log4shell/releases)
 [![Status](https://img.shields.io/github/workflow/status/claranet/ansible-role-log4shell/Ansible%20Molecule?style=flat-square&label=tests)](https://github.com/claranet/ansible-role-log4shell/actions?query=workflow%3A%22Ansible+Molecule%22)
-[![Ansible version](https://img.shields.io/badge/ansible-%3E%3D2.10-black.svg?style=flat-square&logo=ansible)](https://github.com/ansible/ansible)
+[![Ansible version](https://img.shields.io/badge/ansible-%3E%3D4-black.svg?style=flat-square&logo=ansible)](https://github.com/ansible/ansible)
 [![Ansible Galaxy](https://img.shields.io/badge/ansible-galaxy-black.svg?style=flat-square&logo=ansible)](https://galaxy.ansible.com/claranet/log4shell)
 
 
