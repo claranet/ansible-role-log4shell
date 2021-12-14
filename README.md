@@ -33,7 +33,6 @@ ansible-galaxy install claranet.log4shell
 Variable                | Default value | Description
 ------------------------|---------------|------------------------
 log4shell_scan_path     | /             | Filesystem path to scan
-log4shell_ignore_errors | true          | Ignore results errors
 
 ## :arrows_counterclockwise: Dependencies
 

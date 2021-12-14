@@ -10,5 +10,20 @@
         url: https://download.rundeck.org/war/rundeck-3.3.12-20210521.war
         dest: "{{ log4shell_scan_path }}/rundeck.war"
         mode: '0440'
-  roles:
-    - role: claranet.log4shell
+
+  tasks:
+    - block:
+        - name: Include claranet.log4shell
+          include_role:
+            name: claranet.log4shell
+          register: expected_failure
+        - name: Check execution halted
+          fail:
+            msg: Execution should stop before this task
+          register: should_not_run
+      rescue:
+        - assert:
+            that:
+              - expected_failure is defined
+              - expected_failure.failed
+              - should_not_run is not defined

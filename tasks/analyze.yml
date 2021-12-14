@@ -23,13 +23,22 @@
       loop_control:
         label: "{{ item.item }}"
 
-    - name: analyze - Fail if vulnerable to CVE-2021-44228 (Log4Shell)
-      fail:
-        msg: "{{ item.key }} is using Log4J version {{ item.value }} which is vulnerable to CVE-2021-44228 (Log4Shell)"
+    - block:
+        - name: analyze - Check for CVE-2021-44228 (Log4Shell)
+          assert:
+            that:
+              - item.value is version(_log4shell_patched_version, '>=')
+            fail_msg: "{{ item.key }} is using Log4J version {{ item.value }} which may be **VULNERABLE** to CVE-2021-44228 (Log4Shell)"
+            success_msg: "{{ item.key }} is using Log4J version {{ item.value }} which is **NOT** vulnerable to CVE-2021-44228 (Log4Shell)"
+          loop: "{{ log4shell_analyze_versions | dict2items }}"
+          ignore_errors: true  # noqa ignore-errors
+          register: _log4shell_assert
+
+        - name: analyze - Fail if vulnerable to CVE-2021-44228 (Log4Shell)
+          fail:
+            msg: "At least one file may be **VULNERABLE** to CVE-2021-44228 (Log4Shell)"
+          when: _log4shell_assert.failed
       when:
         - log4shell_analyze_versions is defined
-        - item.value is version(_log4shell_patched_version, '<')
-      loop: "{{ log4shell_analyze_versions | dict2items }}"
-      ignore_errors: "{{ log4shell_ignore_errors|bool }}"  # noqa ignore-errors
   when: _log4shell_files|length>0
 ...
