@@ -11,9 +11,9 @@
 
 Find Log4Shell CVE-2021-44228 on your system
 
-This role tries to find jar and war from filesystem and from opened files (lsof)
+This role tries to find JAR and WAR from filesystem and from opened files (lsof)
 
-:warning: Your system may runs slowly during the scan du to a `find` on / and the unarchive process to lookup inside the JARs/WARs
+:warning: Your system may runs slowly during the scan due to a `find` on `/` and the unarchive process to lookup inside the JARs/WARs
 
 This role populates the variable `log4shell_analyze_versions` with a dictionary like this one:
 ```

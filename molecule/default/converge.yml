@@ -5,6 +5,10 @@
     log4shell_scan_path: /tmp
 
   pre_tasks:
+    - name: Install tar
+      package:
+        name: tar
+
     - name: Download vulnerable Rundeck
       get_url:
         url: https://download.rundeck.org/war/rundeck-3.3.12-20210521.war
