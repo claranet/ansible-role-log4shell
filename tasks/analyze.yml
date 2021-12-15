@@ -18,7 +18,7 @@
 
     - name: analyze - Process analyze
       set_fact:
-        log4shell_analyze_versions: "{{ log4shell_analyze_versions|default({}) | combine({item.item: ((item.files | map('regex_search', _log4shell_regex, '\\1') | select('iterable') | map('first') | list | first) if item.item.endswith('.war') else item.item | regex_search(_log4shell_regex, '\\1') | first )}) }}"
+        log4shell_analyze_versions: "{{ log4shell_analyze_versions|default({}) | combine({item.item: ((item.files | map('regex_search', _log4shell_regex, '\\1') | select('iterable') | map('first') | list | first) if item.item.endswith('.war') else item.item | regex_search(_log4shell_regex, '\\1') | default([_log4shell_dummy_version], true) | first )}) }}"
       loop: "{{ _log4shell_analyze_unarchive.results|default([]) }}"
       loop_control:
         label: "{{ item.item }}"
@@ -27,7 +27,7 @@
         - name: analyze - Check for CVE-2021-44228 (Log4Shell)
           assert:
             that:
-              - item.value is version(_log4shell_patched_version, '>=')
+              - item.value is version(_log4shell_patched_version, '>=') or item.value is version(_log4shell_dummy_version, '==')
             fail_msg: "{{ item.key }} is using Log4J version {{ item.value }} which may be **VULNERABLE** to CVE-2021-44228 (Log4Shell)"
             success_msg: "{{ item.key }} is using Log4J version {{ item.value }} which is **NOT** vulnerable to CVE-2021-44228 (Log4Shell)"
           loop: "{{ log4shell_analyze_versions | dict2items }}"
