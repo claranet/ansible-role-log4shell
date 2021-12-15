@@ -2,8 +2,6 @@
 - name: lsof - Run lsof
   command: lsof -P -T -X -n  # noqa no-changed-when
   register: _log4shell_lsof
-  tags:
-    - molecule-idempotence-notest
 
 - name: lsof - Process data from lsof
   set_fact:

@@ -11,6 +11,12 @@
         dest: "{{ log4shell_scan_path }}/rundeck.war"
         mode: '0440'
 
+    - name: Download and unarchive apache-log4j-2.12.1-bin.tar.gz
+      ansible.builtin.unarchive:
+        src: https://downloads.apache.org/logging/log4j/2.12.1/apache-log4j-2.12.1-bin.tar.gz
+        dest: "{{ log4shell_scan_path }}"
+        remote_src: true
+
   tasks:
     - block:
         - name: Include claranet.log4shell

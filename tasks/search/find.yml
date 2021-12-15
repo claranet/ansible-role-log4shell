@@ -2,9 +2,11 @@
 - name: find - Find {{ log4shell_scan_path }} *.[j|w]ar
   find:
     paths: "{{ log4shell_scan_path }}"
-    patterns: '*.[j|w]ar'
     file_type: file
     recurse: true
+    patterns:
+      - '*.war'
+      - '*log4j-core-*.jar'
   register: _log4shell_find
 
 - name: find - Process data from find
