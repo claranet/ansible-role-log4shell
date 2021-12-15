@@ -24,10 +24,10 @@
               ( \
                 item.files \
                 | map('regex_search', _log4shell_regex, '\\1') \
-                | default([_log4shell_dummy_version], true) \
                 | select('iterable') \
                 | map('first') \
                 | list \
+                | default([_log4shell_dummy_version], true) \
                 | first \
               ) if item.item.endswith('.war') else \
               ( \
