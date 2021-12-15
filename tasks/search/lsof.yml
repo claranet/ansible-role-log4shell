@@ -5,5 +5,5 @@
 
 - name: lsof - Process data from lsof
   set_fact:
-    _log4shell_lsof_files: "{{ _log4shell_lsof.stdout_lines|default([]) | select('search', 'log4j-core-2') | list | map('split', ' ') | map('last') | list | unique }}"
+    _log4shell_lsof_files: "{{ _log4shell_lsof.stdout_lines|default([]) | select('search', 'log4j-core-') | list | map('split', ' ') | map('last') | list | unique }}"
 ...
