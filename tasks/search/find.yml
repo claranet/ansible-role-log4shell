@@ -1,5 +1,5 @@
 ---
-- name: find - Find {{ log4shell_scan_path }} *.[j|w]ar
+- name: find - Find {{ log4shell_scan_path }} *.war and '*log4j-core-*.jar'
   find:
     paths: "{{ log4shell_scan_path }}"
     file_type: file

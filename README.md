@@ -13,10 +13,35 @@ Find Log4Shell CVE-2021-44228 on your system
 
 This role tries to find jar and war from filesystem and from opened files (lsof)
 
-:warning: Your system may runs slowly during the scan
+:warning: Your system may runs slowly during the scan du to a `find` on / and the unarchive process to lookup inside the JARs/WARs
 
-This role populates the variable `log4shell_analyze_versions` with a dictionary like this one: `{"/tmp/rundeck.war": "2.13.2",}`.
-The key is the path where the role has found the log4j library and the value is the log4j's version.
+This role populates the variable `log4shell_analyze_versions` with a dictionary like this one:
+```
+{
+    "/tmp/rundeck.war": {
+        "version": "2.13.2",
+        "type": "war",
+        "jndilookup": false
+    },
+    "/tmp/apache-log4j-2.12.1-bin/log4j-core-2.12.1.jar": {
+        "version": "2.12.1",
+        "type": "jar",
+        "jndilookup": true
+    },
+    "/tmp/apache-log4j-2.12.1-bin/log4j-core-2.12.1-tests.jar": {
+        "version": "2.12.1",
+        "type": "jar",
+        "jndilookup": false
+    }
+}
+```
+
+The key is the path where the role has found the log4j library.
+
+The value is a dictionary containing the log4j version in `version`, the file type in `type` (war/jar) and and the key `jndilookup` which tells you if the file `org/apache/logging/log4j/core/lookup/JndiLookup.class` is present in a jar
+
+A JAR without JndiLookup.class is not vulnerable according to [https://www.kb.cert.org/vuls/id/930724](https://www.kb.cert.org/vuls/id/930724)
+
 
 ## :warning: Requirements
 
