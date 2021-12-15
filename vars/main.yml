@@ -1,5 +1,5 @@
 ---
 _log4shell_regex: 'log4j-core\S+(\d+.\d+.\d+)\S*\.jar'
-_log4shell_patched_version: '2.14.1'
+_log4shell_patched_version: '2.16.0'
 _log4shell_dummy_version: '0.0.0'
 ...
