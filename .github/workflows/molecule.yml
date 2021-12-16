@@ -38,6 +38,9 @@ jobs:
             tag: "10"
           - image: "ubuntu"
             tag: "20.04"
+        scenario:
+          - default
+          - find_empty_folder
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -48,3 +51,4 @@ jobs:
         with:
           image: ${{ matrix.config.image }}
           tag: ${{ matrix.config.tag }}
+          scenario: ${{ matrix.scenario }}
