@@ -1,3 +1,4 @@
 ---
 log4shell_scan_path: /
+log4shell_find_enabled: true
 ...

@@ -58,6 +58,7 @@ ansible-galaxy install claranet.log4shell
 Variable                | Default value | Description
 ------------------------|---------------|------------------------
 log4shell_scan_path     | /             | Filesystem path to scan
+log4shell_find_enabled  | true          | Enable find command related tasks
 
 ## :arrows_counterclockwise: Dependencies
 

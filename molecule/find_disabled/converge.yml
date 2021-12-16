@@ -1,0 +1,34 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    log4shell_scan_path: /tmp
+    log4shell_find_enabled: false
+
+  pre_tasks:
+    - name: Install tar
+      package:
+        name: tar
+
+    - name: Download vulnerable Rundeck
+      get_url:
+        url: https://download.rundeck.org/war/rundeck-3.3.12-20210521.war
+        dest: "{{ log4shell_scan_path }}/rundeck.war"
+        mode: '0440'
+
+    - name: Download and unarchive apache-log4j-2.12.1-bin.tar.gz
+      ansible.builtin.unarchive:
+        src: https://downloads.apache.org/logging/log4j/2.12.1/apache-log4j-2.12.1-bin.tar.gz
+        dest: "{{ log4shell_scan_path }}"
+        remote_src: true
+
+  tasks:
+    - block:
+        - name: Include claranet.log4shell
+          include_role:
+            name: claranet.log4shell
+      rescue:
+        - assert:
+            that:
+              - log4shell_analyze_versions is not defined
+              - _log4shell_files | length == 0

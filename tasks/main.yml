@@ -2,5 +2,6 @@
 - include_tasks: install.yml
 - include_tasks: search/lsof.yml
 - include_tasks: search/find.yml
+  when: log4shell_find_enabled
 - include_tasks: analyze.yml
 ...

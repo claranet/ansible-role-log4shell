@@ -1,7 +1,7 @@
 ---
 - name: analyze - Merge files list
   set_fact:
-    _log4shell_files: "{{ _log4shell_find_files + _log4shell_lsof_files }}"
+    _log4shell_files: "{{ _log4shell_find_files|default([]) + _log4shell_lsof_files }}"
 
 - block:
     - name: analyze - Analyze jar and war files
@@ -69,4 +69,10 @@
       when:
         - log4shell_analyze_versions is defined
   when: _log4shell_files|length>0
+
+- name: analyze - no files found
+  debug:
+    msg: "analyze - no files found!"
+  when: _log4shell_files | length == 0
+
 ...
